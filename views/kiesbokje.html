@@ -1,0 +1,53 @@
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h3 class="panel-title">Bokjeskiezer</h3>
+    </div>
+
+    <div class="panel-body">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-8">
+                    <img ng-if="getNumberOfBokjes() <= 0" style="background-color:#F44336; margin: auto;" src="images/choosebokjena.png" class="img-responsive img-circle">
+
+                    <div ng-if="getNumberOfBokjes() >= 1">
+                        <div ng-if="chosenBokje != undefined">
+                            <img  style="background-color: {{chosenBokje.color}}; margin: auto;" src="images/{{chosenBokje.image}}" class="img-responsive img-circle" ng-click="chooseBokje();">
+                        </div>
+
+                        <div ng-if="chosenBokje == undefined && !animation">
+                            <img  style="background-color:#FFC107; margin: auto;" src="images/choosebokje.png" class="img-responsive img-circle" ng-click="chooseBokje();">
+                        </div>
+
+                        <div class="animate-switch-container" ng-if="chosenBokje == undefined && animation" ng-animate="animate">
+                            <div ng-switch on="whichBokje">
+                                <div class="animate-switch" ng-switch-when="1">
+                                    <img style="background-color: {{bokSwitcher1.color}}; margin: auto;" src="images/{{bokSwitcher1.image}}" class="img-responsive img-circle"/>
+                                </div>
+                                <div class="animate-switch" ng-switch-when="2">
+                                    <img style="background-color: {{bokSwitcher2.color}}; margin: auto;" src="images/{{bokSwitcher2.image}}" class="img-responsive img-circle"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="margin-top: -10px; height: 86px; text-align:center;" class="panel panel-default">
+                        <div class="panel-footer">
+                            <h2 ng-if="getNumberOfBokjes() <= 0">Geen bokjes in de groep :-(</h2>
+                            <h2 ng-if="getNumberOfBokjes() >= 1 && chosenBokje == undefined && !animation">Klik om een bokje te kiezen</h2>
+                            <h2 ng-if="getNumberOfBokjes() >= 1 && chosenBokje == undefined && animation">Aan het zoeken{{animationdots}}</h2>
+                            <h2 ng-if="getNumberOfBokjes() >= 1 && chosenBokje != undefined && !animation"><strong>{{chosenBokje.name}}</strong> is het bokje!</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel-footer" style="text-align:center;">
+        <span ng-if="getNumberOfBokjes() <= 0">Deze groep bevat geen bokjes, voeg er eerst een paar toe in <strong>bokjesbeheer</strong></span>
+        <span ng-if="getNumberOfBokjes() == 1">Deze groep bevat maarliefst <strong>{{getNumberOfBokjes()}}</strong> bokje. Klik op het plaatje om er 1 te kiezen. Lijkt me geen hele spannende keuze!</span>
+        <span ng-if="getNumberOfBokjes() > 1">Deze groep bevat maarliefst <strong>{{getNumberOfBokjes()}}</strong> bokjes om uit te kiezen. Klik op het plaatje om er 1 te kiezen.</span>
+    </div>
+</div>
